@@ -1,0 +1,22 @@
+[main] rpnTestRunner 1000 (0) exception: trapped!
+[main] rpnTestRunner 1000 (0) exception: code 0xC0000005 at 0x401F0E
+[main] rpnTestRunner 1000 (0) exception: ax 0x0 bx 0x401BEC cx 0xA032F30 dx 0x2
+[main] rpnTestRunner 1000 (0) exception: si 0x0 di 0x0 bp 0x245FEB8 sp 0x245FE98
+[main] rpnTestRunner 1000 (0) exception: exception is: STATUS_ACCESS_VIOLATION
+[main] rpnTestRunner 1000 (0) stack: Stack trace:
+[main] rpnTestRunner 1000 (0) stack: frame 0: sp = 0x245FA38, pc = 0x6100A2C3
+[main] rpnTestRunner 1000 (0) stack: frame 1: sp = 0x245FA74, pc = 0x771FB499
+[main] rpnTestRunner 1000 (0) stack: frame 2: sp = 0x245FA98, pc = 0x771FB46B
+[main] rpnTestRunner 1000 (0) stack: frame 3: sp = 0x245FB48, pc = 0x771B0133
+[main] rpnTestRunner 1000 (0) stack: frame 4: sp = 0x245FEB8, pc = 0x401BFC
+[main] rpnTestRunner 1000 (0) stack: frame 5: sp = 0x245FED4, pc = 0x40153B
+[main] rpnTestRunner 1000 (0) stack: frame 6: sp = 0x245FEE0, pc = 0x40162F
+[main] rpnTestRunner 1000 (0) stack: frame 7: sp = 0x245FF00, pc = 0x61004402
+[main] rpnTestRunner 1000 (0) stack: frame 8: sp = 0x245FF50, pc = 0x61004420
+[main] rpnTestRunner 1000 (0) stack: frame 9: sp = 0x245FF5C, pc = 0x4024CE
+[main] rpnTestRunner 1000 (0) stack: frame 10: sp = 0x245FF6C, pc = 0x40103A
+[main] rpnTestRunner 1000 (0) stack: frame 11: sp = 0x245FF88, pc = 0x76AA338A
+[main] rpnTestRunner 1000 (0) stack: frame 12: sp = 0x245FF94, pc = 0x771D9F72
+[main] rpnTestRunner 1000 (0) stack: frame 13: sp = 0x245FFD4, pc = 0x771D9F45
+[main] rpnTestRunner 1000 (0) stack: frame 14: sp = 0x245FFEC, pc = 0x0
+[main] rpnTestRunner 1000 (0) stack: End of stack trace
