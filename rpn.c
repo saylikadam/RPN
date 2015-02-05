@@ -22,6 +22,12 @@ int operator(char op){
 		return 1;
 	return 0;
 }
+void afterIsDigit(char expression){
+	int *result;
+	result = malloc( sizeof(int));
+	*result = atoi(&expression);
+	// push(&s,result);
+}
 
 Stack stackElements(char *expression){
 	int length = strlen(expression);
@@ -33,8 +39,7 @@ Stack stackElements(char *expression){
 			continue;
 		}
 		if( isdigit(expression[i]) ){
-			result = malloc( sizeof(int));
-			*result = atoi(&expression[i]);
+			afterIsDigit(expression[i]);
 			push(&s,result);
 		}
 		else
@@ -44,32 +49,46 @@ Stack stackElements(char *expression){
 	}
 	return s;
 }
-// got expression ,need to separate it char by char n then evaluation
 
-int evaluate(char *expression){
+// got expression ,need to separate it char by char n then evaluation
+int forWrongInput(char *expression,int length){
+	int operator_count = 0,operand_count =0,j;
+	for(j=0;j<length;j++){
+		if(isdigit(expression[j])){
+			operand_count++;
+		}
+		if(operator(expression[j]))
+			operator_count++;
+	}
+	return (operand_count != operator_count+1)?1:0;
+}
+
+Result evaluate(char *expression){
+	Result answer = {0,0};
 	Stack s = stackElements(expression);
 	int i,a,b ,*result;
 	int length = strlen(expression);
 
+	if(forWrongInput(expression,length)){
+		answer.error = 1;
+		answer.status = 0;
+		return answer;
+	}
 	for(i=0; i<length; i++){
-
 		if(isdigit(expression[i])){
 			result = malloc( sizeof(int));
 			*result = atoi(&expression[i]);
 			push(&s,result);
 			continue;
 		}
-
 		if(operator(expression[i])){
-
 			a = *(int*)pop(&s);
 			b = *(int*)pop(&s);	
-
 			result = malloc( sizeof(int));
 			*result = calculator(a,b,expression[i]);
 			push(&s,result);
-		}
-
-	}		
-	return *result;
+		}	
+	}
+	answer.status = *(int*)result;		
+	return  answer;
 }
