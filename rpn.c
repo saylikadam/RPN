@@ -4,19 +4,16 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-int calculator(int a,int b,char expression){
-	int result ;
+int calculator(int operand1,int operand2,char expression){
 	switch(expression){
-		case '+': result =  a+b;break;
-		case '-': result =  b-a;break;
-		case '*': result =  a*b;break;
-		case '/': result =  b/a;break;
-		default : result = -1;
+		case '+': return operand1 + operand2;break;
+		case '-': return operand2 - operand1;break;
+		case '*': return operand1 * operand2;break;
+		case '/': return operand2 / operand1;break;
+		default : return -1;
 	}
-	return result;
 }
 
-//it will create stack for the elements of expression 2 3 +
 int operator(char op){
 	if(op == '+' || op == '-' || op == '*' || op == '/')
 		return 1;
@@ -30,8 +27,8 @@ void afterIsDigit(char expression){
 }
 
 Stack stackElements(char *expression){
+	int i,*result,store[5],j=0;
 	int length = strlen(expression);
-	int i ,a,b,*result,store[5],j=0;
 	Stack s = createStack();
 
 	for(i = 0;i<length;i++){
@@ -66,26 +63,25 @@ int forWrongInput(char *expression,int length){
 Result evaluate(char *expression){
 	Result answer = {0,0};
 	Stack s = stackElements(expression);
-	int i,a,b ,*result;
 	int length = strlen(expression);
+	int i,operand1,operand2 ,*result;
 
-	if(forWrongInput(expression,length)){
-		answer.error = 1;
-		answer.status = 0;
-		return answer;
-	}
+	if(forWrongInput(expression,length)) return (Result){1,0};
+	
 	for(i=0; i<length; i++){
 		if(isdigit(expression[i])){
+			// afterIsDigit(expression[i]);
 			result = malloc( sizeof(int));
 			*result = atoi(&expression[i]);
 			push(&s,result);
 			continue;
 		}
 		if(operator(expression[i])){
-			a = *(int*)pop(&s);
-			b = *(int*)pop(&s);	
+
+			operand1 = *(int*)pop(&s);
+			operand2 = *(int*)pop(&s);	
 			result = malloc( sizeof(int));
-			*result = calculator(a,b,expression[i]);
+			*result = calculator(operand1,operand2,expression[i]);
 			push(&s,result);
 		}	
 	}
