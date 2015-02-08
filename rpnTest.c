@@ -2,6 +2,29 @@
 #include "expr_assert.h"
 #include "string.h"
 
+void test_operator_gives_1_if_given_char_is_an_operator(){
+	assert(operator('+') ==1);
+	assert(operator('^') ==0);
+}
+void test_calculator_gives_result_of_calculation_of_operands(){
+	assert(calculator(3,4,'+') == 7);
+	assert(calculator(3,4,'-') == 1);
+	assert(calculator(3,4,'*') == 12);
+	assert(calculator(2,4,'/') == 2);
+}
+// void performIfDigit(char expression, Stack *s){
+
+void test_performIfDigits_will_take_char_value_and_convert_into_integer_and_store_it_into_stack(){
+	Stack s = createStack();
+	char value = '3';
+	// isdigit(value);
+	performIfDigit(value, &s);
+	assertEqual((int)s.size,1);
+	assertEqual((int)s.top->next,0);
+	// printf("%d\n",*(int*)s.top->std_id );
+	// assertEqual(*(int*)s.top->std_id,2);
+}
+
 void test_evaluate_will_simplify_the_operation(){
 	Result result = evaluate("2 3 +");
 	assertEqual(result.status,5);

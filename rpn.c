@@ -19,16 +19,15 @@ int operator(char op){
 		return 1;
 	return 0;
 }
-void afterIsDigit(char expression){
+void performIfDigit(char expression, Stack *s){
 	int *result;
 	result = malloc( sizeof(int));
 	*result = atoi(&expression);
-	// push(&s,result);
+	push( s,result);
 }
 
 Stack stackElements(char *expression){
-	int i,*result,store[5],j=0;
-	int length = strlen(expression);
+	int length = strlen(expression) ,i;
 	Stack s = createStack();
 
 	for(i = 0;i<length;i++){
@@ -36,8 +35,7 @@ Stack stackElements(char *expression){
 			continue;
 		}
 		if( isdigit(expression[i]) ){
-			afterIsDigit(expression[i]);
-			push(&s,result);
+			performIfDigit(expression[i],&s);
 		}
 		else
 			if(operator(expression[i])){
@@ -47,7 +45,6 @@ Stack stackElements(char *expression){
 	return s;
 }
 
-// got expression ,need to separate it char by char n then evaluation
 int forWrongInput(char *expression,int length){
 	int operator_count = 0,operand_count =0,j;
 	for(j=0;j<length;j++){
@@ -57,34 +54,33 @@ int forWrongInput(char *expression,int length){
 		if(operator(expression[j]))
 			operator_count++;
 	}
-	return (operand_count != operator_count+1)?1:0;
+	return (operand_count != operator_count + 1);
+}
+
+void popElement(char expression,Stack *s,int *result){
+	int operand1,operand2;
+	operand1 = *(int*)pop(s);
+	operand2 = *(int*)pop(s);
+	*result = calculator(operand1,operand2,expression);
+	push(s,result);
 }
 
 Result evaluate(char *expression){
 	Result answer = {0,0};
 	Stack s = stackElements(expression);
-	int length = strlen(expression);
-	int i,operand1,operand2 ,*result;
+	int *result = malloc( sizeof(int));
+	int length = strlen(expression) ,i;
 
 	if(forWrongInput(expression,length)) return (Result){1,0};
-	
 	for(i=0; i<length; i++){
 		if(isdigit(expression[i])){
-			// afterIsDigit(expression[i]);
-			result = malloc( sizeof(int));
-			*result = atoi(&expression[i]);
-			push(&s,result);
+			performIfDigit(expression[i],&s);
 			continue;
 		}
-		if(operator(expression[i])){
-
-			operand1 = *(int*)pop(&s);
-			operand2 = *(int*)pop(&s);	
-			result = malloc( sizeof(int));
-			*result = calculator(operand1,operand2,expression[i]);
-			push(&s,result);
-		}	
+		if(operator(expression[i])) 
+			popElement(expression[i],&s,result);
 	}
-	answer.status = *(int*)result;		
+	answer.status = *result;		
 	return  answer;
 }
+

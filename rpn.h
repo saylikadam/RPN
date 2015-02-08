@@ -10,4 +10,8 @@ struct result {
 
 Result evaluate(char *expression); 
 Stack stackElements(char *expression);
-int opearation(int);
+char * infixToPostfix(char * expression);
+int operator(char);
+int calculator(int,int,char);
+void performIfDigit(char expression, Stack *s);
+
