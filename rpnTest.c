@@ -3,8 +3,8 @@
 #include "string.h"
 
 void test_operator_gives_1_if_given_char_is_an_operator(){
-	assert(operator('+') ==1);
-	assert(operator('^') ==0);
+	assert(operator_('+') ==1);
+	assert(operator_('^') ==0);
 }
 void test_calculator_gives_result_of_calculation_of_operands(){
 	assert(calculator(3,4,'+') == 7);
@@ -101,7 +101,10 @@ void test_evaluate_returns_the_result_with_error_having_1_for_less_number_of_ope
 	assertEqual(result.error, 1);
 }
 
-// void test_evaluate_returns_the_result_of_postfix_operation_for_multi_digit_operands (){
-// 	assertEqual(evaluate("20 4 *"),80);
-// 	assertEqual(evaluate("20000 400 +"),20400);
-// }
+// char * infixToPostfix(char * expression);
+
+void test_infixToPostfix_returns_the_postfix_of_the_prefix_operation(){
+	char *s1 = "2 + 3";
+	char *s2 = "2 3 +";
+	assertEqual(strcmp(infixToPostfix(s1),s2),0);
+}

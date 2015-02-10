@@ -14,7 +14,7 @@ int calculator(int operand1,int operand2,char expression){
 	}
 }
 
-int operator(char op){
+int operator_(char op){
 	if(op == '+' || op == '-' || op == '*' || op == '/')
 		return 1;
 	return 0;
@@ -38,7 +38,7 @@ Stack stackElements(char *expression){
 			performIfDigit(expression[i],&s);
 		}
 		else
-			if(operator(expression[i])){
+			if(operator_(expression[i])){
 				break;
 			}
 	}
@@ -51,7 +51,7 @@ int forWrongInput(char *expression,int length){
 		if(isdigit(expression[j])){
 			operand_count++;
 		}
-		if(operator(expression[j]))
+		if(operator_(expression[j]))
 			operator_count++;
 	}
 	return (operand_count != operator_count + 1);
@@ -77,10 +77,35 @@ Result evaluate(char *expression){
 			performIfDigit(expression[i],&s);
 			continue;
 		}
-		if(operator(expression[i])) 
+		if(operator_(expression[i])) 
 			popElement(expression[i],&s,result);
 	}
 	answer.status = *result;		
 	return  answer;
+}
+void popAndAdd(Stack *operators, String output, int count){
+	int i;
+	for(i=0;i<operators->size;i++){
+		output[count++] = *(char*)pop(operators);
+		output[count++] = '\0';		
+	}
+}
+
+String infixToPostfix(String expression){
+	int length = strlen(expression), i, count = 0,operator;
+	Stack operators = createStack();
+	String output = malloc( sizeof(char)*length);
+
+	for (i = 0; i<length; i++){
+		if(isdigit(expression[i])){
+			output[count] = expression[i]; count++;
+			output[count] = ' '; count++;  
+		}
+		if(operator_(expression[i])){
+			push(&operators, &expression[i]);
+		}
+	}
+	popAndAdd(&operators,output,count);
+	return output;
 }
 

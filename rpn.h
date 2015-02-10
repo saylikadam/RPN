@@ -1,7 +1,7 @@
-#include "../StackADT/stack.h"
-
+#include "stack.h"
+#include "Queue.h"
 typedef struct result Result;
-
+typedef char *String;
 struct result {
   int error;
   int status;
@@ -10,8 +10,8 @@ struct result {
 
 Result evaluate(char *expression); 
 Stack stackElements(char *expression);
-char * infixToPostfix(char * expression);
-int operator(char);
+int operator_(char);
 int calculator(int,int,char);
 void performIfDigit(char expression, Stack *s);
 
+char * infixToPostfix(char * expression);
